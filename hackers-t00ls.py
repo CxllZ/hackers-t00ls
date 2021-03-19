@@ -203,7 +203,7 @@ while ans:
                 print("If No Results It Has No WAF")
             else:
                 print("If you get an error open another cmd/terminal and execute python script")
-                w = input("Enter Top-Level-Domain Url To WAF Detect(http://example.com) -->: ")
+                w = input("Enter Top-Level-Domain Url To WAF Detect(example.com) -->: ")
                 print ("nmap is scanning url for waf's please be patient")
                 print("Waiting for too long?, hit any key")
                 print ()
