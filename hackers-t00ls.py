@@ -141,7 +141,7 @@ while ans:
         print(ascii_banner)
         print("					By CxllZ")
         host = input("Enter Url To Whois(example.com) -->: ")
-        print("Got An Error Try Running pip uninstall python-whois")
+        print("Got An Error Try Running pip uninstall whois\n then pip install python-whois")
         print(whois.whois(host))
     elif ans=="6":
 ######################################--SQLI SCANNER--#################################################
