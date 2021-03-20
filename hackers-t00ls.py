@@ -364,5 +364,8 @@ while ans:
             bomb.attack()
     elif ans=="10":
         exit()
+    elif ans=="99":
+######################################-- WHATS MY IP?--#################################################
+        os.system("curl ipinfo.io")
     elif ans !="":
-      print("\n Not A Valid Choice Try again") 
+        print("\n Not A Valid Choice Try again") 
