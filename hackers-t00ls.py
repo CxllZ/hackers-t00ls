@@ -2,11 +2,11 @@
 import subprocess, platform, random, string, time, sys, os, re, smtplib
 
 try:
-    import pyfiglet, urllib.request as urllib2, json, pprint, nmap, whois, pyperclip, requests as rq, pyshorteners as ps
+    import pyfiglet, json, pprint, nmap, whois, pyperclip, requests as rq, pyshorteners as ps
     from tld import get_tld
 except ModuleNotFoundError:
     print("modules are not installed")
-    os.system("pip install pyfiglet pyperclip requests python-whois tld python-nmap==0.6.1 pyshorteners==1.0.1")
+    os.system("pip install pyfiglet pyperclip requests python-whois python-nmap==0.6.1 pyshorteners==1.0.1")
 
 if platform.system() == 'Windows':
     os.system("cls")
@@ -36,6 +36,7 @@ while ans:
     ans=input("Choose Your T00l: ") 
     if ans=="1":
 #################################################--GEO IP LOOKUP--#################################################
+        import urllib.request
         if platform.system() == 'Windows':
             os.system("cls")
         else:
@@ -44,7 +45,7 @@ while ans:
         print("					By CxllZ")
         ip = input("Enter Ip -->: ")
         url = "http://ip-api.com/json/"+ip+"?fields=status,message,continent,continentCode,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,offset,currency,isp,org,as,asname,reverse,mobile,proxy,hosting,query"
-        response = urllib2.urlopen(url)
+        response = urllib.request.urlopen(url)
         data = response.read()
         values = json.loads(data)
         print("NOT ACCURATE AS ALWAYS!")
@@ -112,6 +113,7 @@ while ans:
     	        print("Please enter yes or no.") 
     elif ans=="3":
 #################################################--URL BACKTRACER--#################################################
+        from urllib.request import urlopen
         if platform.system() == 'Windows':
             os.system("cls")
         else:
@@ -119,7 +121,7 @@ while ans:
         print(ascii_banner)
         print("					By CxllZ")
         link = input("Enter Url Here -->: ")
-        a = urllib.request.urlopen(link)
+        a = urlopen(link)
         print()
         print("Short Url Goes To:",  a.url)
     elif ans=="4":
@@ -219,6 +221,7 @@ while ans:
     	    print("Please enter yes or no.")
     elif ans=="8":
 ######################################--TEMP-FAKE MAIL--#################################################
+        import requests
         API = 'https://www.1secmail.com/api/v1/'
         domainList = ['1secmail.com', '1secmail.net', '1secmail.org']
         domain = random.choice(domainList)
@@ -285,9 +288,9 @@ while ans:
         email_provider = 'smtp.gmail.com'
         email_address = input("Enter Your Gmail(Gmail ur using to bomb -->: ")
         password = input("Enter Your Gmail Password(Gmail Password ur using to bomb -->: ")
+        target_email = input("Enter Target email -->: ")
         msg = input("Enter your txt message -->: ")
         text_amount = int(input("Enter your amount of txt messages -->: "))
-        target_email = input("Enter Target email -->: ")
         wait = int(input("Enter Delay Between each message -->: "))
         server = smtplib.SMTP(email_provider, 587)
         server.starttls()
