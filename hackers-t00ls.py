@@ -30,7 +30,7 @@ while ans:
     7. WAF(WEB APP FIREWALL) Detection (NMAP)
     8. Temp Mail
     9. Email Bomber
-    10. SMS Momber
+    10. SMS Bomber
     11. Exit/Quit
     """)
     ans=input("Choose Your T00l: ") 
