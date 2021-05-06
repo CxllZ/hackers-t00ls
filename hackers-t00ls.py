@@ -5,7 +5,7 @@ try:
 except ModuleNotFoundError:
     installing = input("is pip or pip3 installed?(pip/pip3)")
     print("modules are not installed")
-    os.system(installing+" install netifaces pyfiglet pyperclip requests python-whois scapyw pyshorteners==1.0.1")
+    os.system(installing+" install netifaces pyfiglet pyperclip requests python-whois scapy pyshorteners==1.0.1")
     print("Got An Error?, restart the program!")
 
 import pyfiglet
