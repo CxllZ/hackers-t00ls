@@ -1,7 +1,0 @@
-netifaces
-pyfiglet
-pyperclip
-requests
-python-whois
-scapy 
-pyshorteners==1.0.1
