@@ -1,5 +1,13 @@
 #################################################--import libraries and install if not installed--#################################################
-import subprocess, platform, random, string, time, sys, os, re, smtplib, json, pprint, whois, pyperclip, requests as rq, pyshorteners as ps, scapy.all as scapy, netifaces
+import subprocess, platform, random, string, time, sys, os, re, smtplib
+try:
+    import pyfiglet, json, pprint, whois, pyperclip, requests as rq, pyshorteners as ps, scapy.all as scapy, netifaces
+except ModuleNotFoundError:
+    installing = input("is pip or pip3 installed?(pip/pip3)")
+    print("modules are not installed")
+    os.system(installing+" install netifaces pyfiglet pyperclip requests python-whois scapy pyshorteners==1.0.1")
+    print("Got An Error?, restart the program!")
+
 import pyfiglet
 if platform.system() == 'Windows':
     os.system("cls")
